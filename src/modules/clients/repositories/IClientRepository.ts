@@ -7,4 +7,5 @@ export interface IClientRepository {
   find(): Promise<Client[]>
   update(data: IUpdateClientDTO): Promise<void>
   delete(id: number): Promise<void>
+  findByName(name: string): Promise<Client | null>
 }

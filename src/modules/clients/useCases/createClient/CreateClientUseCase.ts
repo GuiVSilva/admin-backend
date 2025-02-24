@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 import { IClientRepository } from '../../repositories/IClientRepository'
+import { BadRequestException } from '../../../../shared/errors/http/BadRequestException'
 
 interface IRequest {
   name: string
@@ -37,6 +38,16 @@ export class CreateClientUseCase {
     house_number,
     user
   }: IRequest): Promise<void> {
+    const client = await this.clientRepository.findByName(name)
+
+    if (client?.name === name) {
+      throw new BadRequestException('Cliente com esse nome já existe!')
+    }
+
+    if (client?.cnpf_cnpj === cnpf_cnpj) {
+      throw new BadRequestException('Cliente com esse CNPJ/CPF já existe!')
+    }
+
     await this.clientRepository.create({
       name,
       cnpf_cnpj,

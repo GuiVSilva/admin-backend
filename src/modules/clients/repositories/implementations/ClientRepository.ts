@@ -4,6 +4,7 @@ import { AppDataSource } from '../../../../data-source'
 import { Client } from '../../entities/Client'
 import { ICreateClientDTO } from '../../dtos/ICreateClientDTO'
 import { IUpdateClientDTO } from '../../dtos/IUpdateClientDTO'
+import { BadRequestException } from '../../../../shared/errors/http/BadRequestException'
 
 export class ClientRepository implements IClientRepository {
   private repository: Repository<Client>
@@ -41,7 +42,7 @@ export class ClientRepository implements IClientRepository {
     })
 
     if (!existingClient) {
-      throw new Error('Cliente não encontrado')
+      throw new BadRequestException('Cliente não encontrado')
     }
 
     await this.repository.save({ ...existingClient, ...data })
@@ -50,9 +51,13 @@ export class ClientRepository implements IClientRepository {
   async delete(id: number): Promise<void> {
     const client = await this.repository.findOne({ where: { id } })
     if (!client) {
-      throw new Error('Cliente não encontrado')
+      throw new BadRequestException('Cliente não encontrado')
     }
     client.active = false
     await this.repository.save(client)
+  }
+
+  async findByName(name: string): Promise<Client | null> {
+    return this.repository.findOne({ where: { name } })
   }
 }
