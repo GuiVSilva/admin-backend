@@ -1,7 +1,7 @@
 export interface IUpdateClientDTO {
   id: number
-  name?: string
-  cnpf_cnpj?: string
+  name: string
+  cnpf_cnpj: string
   email?: string
   cellPhone?: string
   cep?: string

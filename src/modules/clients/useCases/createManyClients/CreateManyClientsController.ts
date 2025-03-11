@@ -1,15 +1,19 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import { UpdateClientUseCase } from './UpdateClientUseCase'
+import { CreateManyClientsUseCase } from './CreateManyClientsUseCase'
 import { HttpStatusCode } from '../../../../shared/types'
 import { BadRequestException } from '../../../../shared/errors/http/BadRequestException'
 
-export class UpdateClientController {
+export class CreateManyClientsController {
   async handle(request: Request, response: Response): Promise<Response> {
     try {
-      const updateClientUseCase = container.resolve(UpdateClientUseCase)
+      const { json, user } = request.body
 
-      await updateClientUseCase.execute(request.body)
+      const createManyClientsUseCase = container.resolve(
+        CreateManyClientsUseCase
+      )
+
+      await createManyClientsUseCase.execute(json, user)
 
       return response
         .status(HttpStatusCode.CREATED)
