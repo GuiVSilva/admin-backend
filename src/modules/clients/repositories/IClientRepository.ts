@@ -8,4 +8,5 @@ export interface IClientRepository {
   update(data: IUpdateClientDTO): Promise<void>
   delete(id: number): Promise<void>
   findByName(name: string): Promise<Client | null>
+  findById(id: number): Promise<Client | null>
 }
