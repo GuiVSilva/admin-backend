@@ -37,15 +37,15 @@ export class CreateManyClientsUseCase {
       const state = client.Estado
       const house_number = client.Número
 
-      const existClient = await this.clientRepository.findByName(name)
+      // const existClient = await this.clientRepository.findByName(name)
 
-      if (existClient?.name === name) {
-        throw new BadRequestException('Cliente com esse nome já existe!')
-      }
+      // if (existClient?.name === name) {
+      //   throw new BadRequestException('Cliente com esse nome já existe!')
+      // }
 
-      if (existClient?.cnpf_cnpj == cnpf_cnpj) {
-        throw new BadRequestException('Cliente com esse CNPJ/CPF já existe!')
-      }
+      // if (existClient?.cnpf_cnpj == cnpf_cnpj) {
+      //   throw new BadRequestException('Cliente com esse CNPJ/CPF já existe!')
+      // }
 
       try {
         await this.clientRepository.create({

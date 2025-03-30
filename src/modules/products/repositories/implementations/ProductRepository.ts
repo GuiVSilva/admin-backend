@@ -18,7 +18,7 @@ export class ProductRepository implements IProductRepository {
   }
 
   async findByName(name: string): Promise<Products | null> {
-    return this.repository.findOne({ where: { name } })
+    return this.repository.findOne({ where: { name, active: true } })
   }
 
   async find(): Promise<Products[]> {

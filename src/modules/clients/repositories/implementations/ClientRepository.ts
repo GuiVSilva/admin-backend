@@ -57,10 +57,10 @@ export class ClientRepository implements IClientRepository {
   }
 
   async findByName(name: string): Promise<Client | null> {
-    return this.repository.findOne({ where: { name } })
+    return this.repository.findOne({ where: { name, active: true } })
   }
 
   async findById(id: number): Promise<Client | null> {
-    return this.repository.findOne({ where: { id } })
+    return this.repository.findOne({ where: { id, active: true } })
   }
 }
